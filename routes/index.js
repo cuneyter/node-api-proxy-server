@@ -1,7 +1,7 @@
 const express = require("express");
 const url = require("url");
 const router = express.Router();
-const needle = require("needle");
+const axios = require("axios");
 
 // ENV variables
 const API_BASE_URL = process.env.API_BASE_URL;
@@ -16,8 +16,11 @@ const createParams = (reqUrl) => {
 };
 
 const makeApiRequest = async (params) => {
-  const apiResponse = await needle("get", `${API_BASE_URL}?${params}`);
-  return apiResponse.body;
+  // const apiResponse = await needle("get", `${API_BASE_URL}?${params}`);
+  // return apiResponse.body;
+
+  const apiResponse = await axios.get(`${API_BASE_URL}?${params}`);
+  return apiResponse.data;
 };
 
 router.get("/", (req, res) => {

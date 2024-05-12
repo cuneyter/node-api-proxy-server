@@ -18,7 +18,11 @@ app.use(limiter);
 app.set("trust proxy", 1);
 
 // Enable CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: `http://${HOST}:8080`,
+  })
+);
 
 // Set static folder
 // app.use("/home", express.static("public")); // http://localhost:3000/home/index.html can be given different path

@@ -2,9 +2,12 @@ const weatherDisplay = document.querySelector(".weather");
 const weatherForm = document.querySelector("#weather-form");
 const cityInput = document.querySelector("#city-input");
 
+const PORT = 3000; // Typically your backend port
+const HOST = "localhost"; // Typically localhost during development
+
 // Fetch weather data from API
 const fetchWeather = async (city) => {
-  const url = `/api?q=${city}`;
+  const url = `http://${HOST}:${PORT}/api?q=${city}`;
 
   const res = await fetch(url);
   const data = await res.json();

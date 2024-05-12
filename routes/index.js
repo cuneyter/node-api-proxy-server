@@ -10,13 +10,13 @@ const API_KEY_NAME = process.env.API_KEY_NAME;
 const API_KEY_VALUE = process.env.API_KEY_VALUE;
 
 // Initialize the cache
-const cache = apicache.middleware;
+// const cache = apicache.middleware;
 
 router.get("/app", (req, res) => {
   res.send("App is working");
 });
 
-router.get("/api", cache("2 minutes"), async (req, res) => {
+router.get("/api", async (req, res) => {
   try {
     const params = createParams(req.url);
     const data = await makeApiRequest(params);

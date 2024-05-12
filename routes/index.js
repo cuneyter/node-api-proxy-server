@@ -2,6 +2,7 @@ const express = require("express");
 const url = require("url");
 const router = express.Router();
 const axios = require("axios");
+const apicache = require("apicache");
 
 // ENV variables
 const API_BASE_URL = process.env.API_BASE_URL;
@@ -23,11 +24,14 @@ const makeApiRequest = async (params) => {
   return apiResponse.data;
 };
 
+// Initialize the cache
+const cache = apicache.middleware;
+
 router.get("/", (req, res) => {
   res.send("App is working");
 });
 
-router.get("/api", async (req, res) => {
+router.get("/api", cache("2 minutes"), async (req, res) => {
   try {
     const params = createParams(req.url);
     const data = await makeApiRequest(params);

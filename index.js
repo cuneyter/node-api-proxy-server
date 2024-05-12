@@ -20,6 +20,10 @@ app.set("trust proxy", 1);
 // Enable CORS
 app.use(cors());
 
+// Set static folder
+// app.use("/home", express.static("public")); // http://localhost:3000/home/index.html can be given different path
+app.use(express.static("public"));
+
 // Routes
 app.use("/", require("./routes"));
 

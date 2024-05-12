@@ -4,8 +4,7 @@ const cityInput = document.querySelector("#city-input");
 
 // Fetch weather data from API
 const fetchWeather = async (city) => {
-  const url = `api.openweathermap.org/data/2.5/weather?q=${city}&appid=40ce361f8a0136baf36f11fab3416aad
-`;
+  const url = `/api?q=${city}`;
 
   const res = await fetch(url);
   const data = await res.json();
@@ -17,7 +16,7 @@ const fetchWeather = async (city) => {
 
   const displayData = {
     city: data.name,
-    temp: kelvinToFahrenheit(data.main.temp),
+    temp: kelvinToCelsius(data.main.temp),
   };
 
   addWeatherToDOM(displayData);
@@ -27,15 +26,15 @@ const fetchWeather = async (city) => {
 const addWeatherToDOM = (data) => {
   weatherDisplay.innerHTML = `
     <h1>Weather in ${data.city}</h1>
-    <h2>${data.temp} &deg;F</h2>
+    <h2>${data.temp} &deg;C</h2>
   `;
   cityInput.value = "";
 };
 
-// Convert Kelvin to Fahrenheit
-const kelvinToFahrenheit = (temp) => {
-  return Math.ceil(((temp - 273.15) * 9) / 5 + 32);
-};
+// Convert Kelvin to Celsius
+function kelvinToCelsius(kelvin) {
+  return (kelvin - 273.15).toFixed(1);
+}
 
 // Event listener for form submission
 weatherForm.addEventListener("submit", (e) => {
@@ -49,4 +48,4 @@ weatherForm.addEventListener("submit", (e) => {
 });
 
 // Initial fetch
-fetchWeather("Miami");
+fetchWeather("London");
